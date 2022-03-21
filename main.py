@@ -1,7 +1,6 @@
 # import distance
 import shock_detection
 import HC_SR04
-import posturl
 import time
 
 while True:
