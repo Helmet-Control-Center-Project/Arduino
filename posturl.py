@@ -1,5 +1,3 @@
-import os
-import time
 from sys import stdin
 
 
@@ -9,6 +7,26 @@ def API():
         lines = f.readlines()
     lines = [line.rstrip('\n') for line in lines]
     return lines
+            
+def shock():
+    lines = API()
+    shock_URL ='http://' + lines[0] + ':' + lines[1] + '/api/shocksensor'
+    return shock_URL
+
+def wearing():
+    lines = API()
+    wearing_URL ='http://' + lines[0] + ':' + lines[1] + '/api/wearing'
+    return wearing_URL
+
+def sos():
+    lines = API()
+    sos_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos'
+    return sos_URL
+
+def sosC():
+    lines = API()
+    sosC_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos/cancel'
+    return sosC_URL
 
 # def IP_change():
 #     print("변경할 IP주소 입력 :")
@@ -33,26 +51,6 @@ def API():
     #             f.write(input())
     #         else :
     #             f.write(line)
-            
-def shock():
-    lines = API()
-    shock_URL ='http://' + lines[0] + ':' + lines[1] + '/api/shocksensor'
-    return shock_URL
-
-def wearing():
-    lines = API()
-    wearing_URL ='http://' + lines[0] + ':' + lines[1] + '/api/wearing'
-    return wearing_URL
-
-def sos():
-    lines = API()
-    sos_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos'
-    return sos_URL
-
-def sosC():
-    lines = API()
-    sosC_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos/cancel'
-    return sosC_URL
 
 # # def start():
 #     while True:

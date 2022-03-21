@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from email import header
 import requests, json
 import time
+import posturl
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -34,7 +35,7 @@ def distance_result():
             'distance' : distance_result
             })
     header = {'Content-type' : 'application/json'}
-    res = requests.post('http://125.177.137.35:8080/api/shocksensor', data=data, headers=header)
+    res = requests.post(posturl.shock(), data=data, headers=header)
     return distance_result
 
 

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from email import header
 import RPi.GPIO as GPIO
 import time
