@@ -1,10 +1,8 @@
-import shock_detection
 # import distance
+import shock_detection
 import HC_SR04
+import posturl
 import time
-
-time.sleep(1)
-
 
 while True:
     distance = HC_SR04.distance()

@@ -4,6 +4,7 @@ from email import header
 import RPi.GPIO as GPIO
 import time
 import requests, json
+import posturl
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -21,7 +22,7 @@ def shock_result():
 			})
 	header = {'Content-type' : 'application/json'}
 
-	res = requests.post('http://125.177.137.35:8080/api/shocksensor', data=data, headers=header )
+	res = requests.post(posturl.shock(), data=data, headers=header )
 	return result
 
 
