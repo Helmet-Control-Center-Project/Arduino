@@ -1,3 +1,4 @@
+#초음파 거리센서, 착용 감지센서로 사용, HC_SRO4
 import RPi.GPIO as GPIO
 from email import header
 import requests, json
@@ -9,7 +10,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT)
 GPIO.setup(18, GPIO.IN)
 
-def distance():
+def distance(): #센서의 값을 반환하는 모듈
     GPIO.output(17, False)
     time.sleep(0.5)
 
@@ -28,18 +29,18 @@ def distance():
     distance = round(distance, 2)
     return distance
 
-def distance_result():
+def distance_result(): #센서의 값을 post통신으로 서버에 전송하는 모듈
     distance_result = distance()
-    data = json.dumps({
+    data = json.dumps({ #보내는 데이터 : HelmetID와 센서 값(distance)
             'helmetId' : 'H0001',
             'distance' : distance_result
             })
     header = {'Content-type' : 'application/json'}
-    res = requests.post(posturl.shock(), data=data, headers=header)
+    res = requests.post(posturl.shock(), data=data, headers=header) #posturl의 wearing 모듈이 나타내는 서버로 데이터 전송
     return distance_result
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': #shock_detection.py가 단독으로 실행될때 실행
 
     while True:
         print("Distance => ", distance(), "cm")

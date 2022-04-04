@@ -1,29 +1,28 @@
-from sys import stdin
+# from sys import stdin
 
-
-def API():
-    file_path = "/home/ubuntu/Arduino/API.txt"
+def API(): #API.txt의 각 열을 lines배열에 입력하는 모듈 / lines[0] = IP, lines[1] = Port
+    file_path = "/home/ubuntu/Arduino/API.txt" 
     with open(file_path) as f:
         lines = f.readlines()
     lines = [line.rstrip('\n') for line in lines]
     return lines
             
-def shock():
+def shock(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 충격센서
     lines = API()
     shock_URL ='http://' + lines[0] + ':' + lines[1] + '/api/shocksensor'
     return shock_URL
 
-def wearing():
+def wearing(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 거리센서
     lines = API()
     wearing_URL ='http://' + lines[0] + ':' + lines[1] + '/api/wearing'
     return wearing_URL
 
-def sos():
+def sos(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 버튼
     lines = API()
     sos_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos'
     return sos_URL
 
-def sosC():
+def sosC(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 버튼
     lines = API()
     sosC_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos/cancel'
     return sosC_URL
