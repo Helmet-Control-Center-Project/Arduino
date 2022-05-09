@@ -12,8 +12,7 @@ GPIO.setup(18, GPIO.IN)
 
 def distance(): #센서의 값을 반환하는 모듈
     GPIO.output(17, False)
-    time.sleep(0.5)
-
+    time.sleep(0.1)
     GPIO.output(17, True)
     time.sleep(0.00001)
     GPIO.output(17, False)
@@ -30,13 +29,18 @@ def distance(): #센서의 값을 반환하는 모듈
     return distance
 
 def distance_result(): #센서의 값을 post통신으로 서버에 전송하는 모듈
-    distance_result = distance()
+    a = distance()
+    if a < 6 :
+        Distance_result = 1
+    else :
+        Distance_result = 0
+
     data = json.dumps({ #보내는 데이터 : HelmetID와 센서 값(distance)
             'helmetId' : 'H0001',
-            'distance' : distance_result
+            'wearingCondition' : Distance_result
             })
     header = {'Content-type' : 'application/json'}
-    res = requests.post(posturl.shock(), data=data, headers=header) #posturl의 wearing 모듈이 나타내는 서버로 데이터 전송
+    res = requests.post(posturl.wearing(), data=data, headers=header) #posturl의 wearing 모듈이 나타내는 서버로 데이터 전송
     return distance_result
 
 
@@ -44,3 +48,4 @@ if __name__ == '__main__': #shock_detection.py가 단독으로 실행될때 실�
 
     while True:
         print("Distance => ", distance(), "cm")
+        distance_result()
