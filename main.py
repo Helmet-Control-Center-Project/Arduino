@@ -1,25 +1,36 @@
 # 메인 소스
+import RPi.GPIO as GPIO
+from email import header
+import requests, json
 import FSR_402
 import HC_SR04
-import time
+import GPS
+import posturl
+import Emergency
+
+button = 20
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(button, GPIO.IN)
 
 while True:
-    distance = HC_SR04.distance() #착용센서의 값을 저장
-    LEFT = FSR_402.cha0()
-    RIGHT = FSR_402.cha1() #충격센서의 값을 저장
+    distance = HC_SR04.distance()
+    Left = FSR_402.cha0()
+    Right = FSR_402.cha1()
+    Center = FSR_402.cha2()
+    Back = FSR_402.cha3()
+    Front = FSR_402.cha4()
+    inputIO = GPIO.input(button)
+    
+    GPS.GPS_result()
+    HC_SR04.distance_result()
+    
+    if inputIO == False:
+        Emergency.SOS()
 
-    HC_SR04.distance_result() #착용센서의 값을 서버로 전송
-    if distance < 6: #착용중인 상태
-        if LEFT or RIGHT > 0: 
-            FSR_402.cha_result() #충격센서의 값을 서버로 전송
-            print("--------------------------")
-            print("착용 중")
-            print("LEFT : ",LEFT, "RIGHT : ",RIGHT)
-            print("total : ", LEFT+RIGHT)
-        else: #착용중이며 충격이 발생하지 않은 상태
-            print("--------------------------")
-            print("착용 중")
-            print("충격이 감지되지 않았음")
-    else: #착용중이 아닌 상태
-        print("--------------------------")
-        print("착용 아님")
+    else :
+        if Center or Left or Right or Front or Back > 0:
+            FSR_402.cha_result()
+            print("Distance => ", distance, "cm")
+            print("Center : ",Center, ",Left : ",Left, ",Right : ",Right, ",Front : ",Front, ",Back : ",Back)
+            print("total : ", Center+Left+Right+Front+Back)

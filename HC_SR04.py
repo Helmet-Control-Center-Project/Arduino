@@ -48,4 +48,4 @@ if __name__ == '__main__': #shock_detection.py가 단독으로 실행될때 실�
 
     while True:
         print("Distance => ", distance(), "cm")
-        distance_result()
+        # distance_result()

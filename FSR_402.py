@@ -58,24 +58,73 @@ def cha1():
         index += 1
     return analog_level
 
+def cha2():
+    index = 0
+    analog_level = ReadChannel(2)
+    Vout = analog_level * Vcc / 1024.0
+    if(Vout < 2.2):
+        Vout = 0.001
+        Rfsr = 5000000
+        analog_level = 0
+    else:
+        Rfsr = fsr420_Registor(Vout)
+        index += 1
+    return analog_level
+
+def cha3():
+    index = 0
+    analog_level = ReadChannel(3)
+    Vout = analog_level * Vcc / 1024.0
+    if(Vout < 2.2):
+        Vout = 0.001
+        Rfsr = 5000000
+        analog_level = 0
+    else:
+        Rfsr = fsr420_Registor(Vout)
+        index += 1
+    return analog_level
+
+def cha4():
+    index = 0
+    analog_level = ReadChannel(4)
+    Vout = analog_level * Vcc / 1024.0
+    if(Vout < 2.2):
+        Vout = 0.001
+        Rfsr = 5000000
+        analog_level = 0
+    else:
+        Rfsr = fsr420_Registor(Vout)
+        index += 1
+    return analog_level    
+
+
 def cha_result(): #센서의 값을 post통신으로 서버에 전송하는 모듈
     Left_result = cha0() 
     Right_result = cha1()
+    Center_result = cha2() 
+    Back_result = cha3()
+    Front_result = cha4()
     data = json.dumps({
             'helmetId' : 'H0001',
             'shockDataLeft' : Left_result,
-            'shockDataRight' : Right_result
+            'shockDataRight' : Right_result,
+            'shockDataCenter' : Center_result,
+            'shockDataBack' : Back_result,
+            'shockDataFront' : Front_result
             })
     header = {'Content-type' : 'application/json'}
     res = requests.post(posturl.shock(), data=data, headers=header) #해당 API의 서버로 데이터를 전송
 
 if __name__ == '__main__':
     while True :
-        a = cha0()
-        b = cha1()
-        if a or b > 0:
-            print("a : ",a, "b : ",b)
-            print("total : ", a+b)
-            cha_result()
+        Left = cha0()
+        Right = cha1()
+        Center = cha2()
+        Back = cha3()
+        Front = cha4()
+        if Center or Left or Right or Front or Back > 0:
+            print("Center : ",Center, ",Left : ",Left, ",Right : ",Right, ",Front : ",Front, ",Back : ",Back)
+            print("total : ", Center+Left+Right+Front+Back)
+            # cha_result()
         time.sleep(0.03)
    

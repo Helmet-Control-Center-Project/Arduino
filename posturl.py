@@ -17,16 +17,15 @@ def wearing(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 거
     wearing_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sensor/wearing'
     return wearing_URL
 
+def gps(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 거리센서
+    lines = API()
+    gps_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sensor/gps'
+    return gps_URL
+
 def sos(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 버튼
     lines = API()
-    sos_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos'
+    sos_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sensor/sos'
     return sos_URL
-
-def sosC(): #API.txt 수정을 통해 서버 API를 변경하는 모듈 - 버튼
-    lines = API()
-    sosC_URL ='http://' + lines[0] + ':' + lines[1] + '/api/sos/cancel'
-    return sosC_URL
-
 # def IP_change():
 #     print("변경할 IP주소 입력 :")
 #     file_path = "/home/ubuntu/Arduino/API.txt"
