@@ -1,6 +1,4 @@
-#초음파 거리센서, 착용 감지센서로 사용, HC_SRO4
 import RPi.GPIO as GPIO
-from email import header
 import requests, json
 import time
 import posturl
@@ -30,7 +28,7 @@ def distance(): #센서의 값을 반환하는 모듈
 
 def distance_result(): #센서의 값을 post통신으로 서버에 전송하는 모듈
     a = distance()
-    if a < 6 :
+    if a < 7 :
         Distance_result = 1
     else :
         Distance_result = 0

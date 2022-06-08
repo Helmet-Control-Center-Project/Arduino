@@ -1,15 +1,11 @@
-# 메인 소스
 import RPi.GPIO as GPIO
-from email import header
-import requests, json
 import FSR_402
 import HC_SR04
 import GPS
-import posturl
 import Emergency
 
-button = 20
 GPIO.setwarnings(False)
+button = 20
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(button, GPIO.IN)
 
@@ -22,15 +18,23 @@ while True:
     Front = FSR_402.cha4()
     inputIO = GPIO.input(button)
     
-    GPS.GPS_result()
-    HC_SR04.distance_result()
-    
     if inputIO == False:
         Emergency.SOS()
+        print("sos")
 
     else :
-        if Center or Left or Right or Front or Back > 0:
+        if Center + Left + Right + Front + Back > 1500:
             FSR_402.cha_result()
+            GPS.GPS_result()
+            HC_SR04.distance_result()
             print("Distance => ", distance, "cm")
             print("Center : ",Center, ",Left : ",Left, ",Right : ",Right, ",Front : ",Front, ",Back : ",Back)
             print("total : ", Center+Left+Right+Front+Back)
+
+        elif Center or Left or Right or Front or Back > 0:
+            FSR_402.cha_result()
+            HC_SR04.distance_result()
+            print("Distance => ", distance, "cm")
+            print("Center : ",Center, ",Left : ",Left, ",Right : ",Right, ",Front : ",Front, ",Back : ",Back)
+            print("total : ", Center+Left+Right+Front+Back)
+        

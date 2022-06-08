@@ -125,6 +125,6 @@ if __name__ == '__main__':
         if Center or Left or Right or Front or Back > 0:
             print("Center : ",Center, ",Left : ",Left, ",Right : ",Right, ",Front : ",Front, ",Back : ",Back)
             print("total : ", Center+Left+Right+Front+Back)
-            # cha_result()
+            cha_result()
         time.sleep(0.03)
    

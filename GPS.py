@@ -27,4 +27,5 @@ def GPS_result():
 if __name__ == '__main__':
     while True :
         latitude, longitude = GPS()
+        GPS_result()
         print(latitude,",",longitude)
