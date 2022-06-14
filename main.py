@@ -8,6 +8,10 @@ GPIO.setwarnings(False)
 button = 20
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(button, GPIO.IN)
+latitude, longitude = GPS.GPS()
+
+GPS.GPS_result()
+print(latitude, longitude)
 
 while True:
     distance = HC_SR04.distance()

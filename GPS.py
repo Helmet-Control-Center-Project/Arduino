@@ -4,7 +4,7 @@ import posturl
 
 
 def GPS():
-    command = ['gpspipe','-r','-x','2']
+    command = ['gpspipe','-r','-x','4']
     fd_popen = subprocess.Popen(command, stdout=subprocess.PIPE).stdout
     data = fd_popen.read().strip()
     fd_popen.close()

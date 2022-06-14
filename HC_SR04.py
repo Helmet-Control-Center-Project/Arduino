@@ -29,9 +29,9 @@ def distance(): #센서의 값을 반환하는 모듈
 def distance_result(): #센서의 값을 post통신으로 서버에 전송하는 모듈
     a = distance()
     if a < 7 :
-        Distance_result = 1
+        Distance_result = "착용"
     else :
-        Distance_result = 0
+        Distance_result = "미착용"
 
     data = json.dumps({ #보내는 데이터 : HelmetID와 센서 값(distance)
             'helmetId' : 'H0001',
@@ -39,11 +39,11 @@ def distance_result(): #센서의 값을 post통신으로 서버에 전송하는
             })
     header = {'Content-type' : 'application/json'}
     res = requests.post(posturl.wearing(), data=data, headers=header) #posturl의 wearing 모듈이 나타내는 서버로 데이터 전송
-    return distance_result
+    return Distance_result
 
 
 if __name__ == '__main__': #shock_detection.py가 단독으로 실행될때 실행
 
     while True:
         print("Distance => ", distance(), "cm")
-        # distance_result()
+        distance_result()
